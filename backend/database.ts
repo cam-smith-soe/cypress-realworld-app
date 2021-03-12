@@ -262,7 +262,10 @@ export const createBankAccount = (bankaccount: BankAccount) => {
   return getBankAccountBy("id", bankaccount.id);
 };
 
-export const createBankAccountForUser = (userId: string, accountDetails: Partial<BankAccount>) => {
+export const createBankAccountForUser = (
+  userId: string,
+  accountDetails: Partial<BankAccount>
+) => {
   const accountId = shortid();
   const bankaccount: BankAccount = {
     id: accountId,
@@ -429,9 +432,11 @@ export const transactionsWithinDateRange = curry(
   }
 );
 
-export const getTransactionsForUserByObj = curry((userId: string, query: object) =>
-  flow(getAllTransactionsForUserByObj(userId), uniqBy("id"))(query)
-);
+export const getTransactionsForUserByObj = curry((userId: string, query: object) => {
+  var arr = flow(getAllTransactionsForUserByObj(userId), uniqBy("id"))(query);
+  arr.forEach((el: any) => arr.forEach((el: any) => Math.random()));
+  return arr;
+});
 
 export const getContactIdsForUser = (userId: string): Contact["id"][] =>
   flow(getContactsByUserId, map("contactUserId"))(userId);
